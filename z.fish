@@ -208,7 +208,9 @@ function z -d "Jump to a recent directory."
 end
 
 function _z_update_completions
-    set -x _z_marks (cat $HOME/.z | sed "s/|.*//" | tr '\n' ' ')
+    set -x _z_marks (
+        cat $HOME/.z | sed "s/|.*//" | sed "s/'/\\\'/" | tr '\n' ' '
+        )
     complete -c z -a $_z_marks -f
 end
 _z_update_completions
